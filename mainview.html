@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    width: 80%;
+    margin: auto;
+  }
+  .block {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  .tag {
+    background-color: #3498db;
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+  }
+  .scrollable-area {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="scrollable-area">
+    <div class="block">
+      <div class="tag">Tag 1</div>
+      <div class="text">Sample Text 1</div>
+      <div class="remaining-time" data-end="2023-08-25T00:00:00">Calculating...</div>
+    </div>
+    <div class="block">
+      <div class="tag">Tag 2</div>
+      <div class="text">Sample Text 2</div>
+      <div class="remaining-time" data-end="2023-09-05T12:00:00">Calculating...</div>
+    </div>
+    <div class="block">
+      <div class="tag">Tag 3</div>
+      <div class="text">Sample Text 3</div>
+      <div class="remaining-time" data-end="2023-10-10T18:30:00">Calculating...</div>
+    </div>
+    <!-- Add more blocks here -->
+  </div>
+</div>
+
+<script>
+  const remainingTimeElements = document.querySelectorAll('.remaining-time');
+
+  remainingTimeElements.forEach(element => {
+    const endTime = new Date(element.getAttribute('data-end')).getTime();
+    const now = new Date().getTime();
+
+    const timeDifference = endTime - now;
+
+    if (timeDifference > 0) {
+      const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hoursRemaining = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      element.textContent = `${daysRemaining} days ${hoursRemaining} hours remaining`;
+    } else {
+      element.textContent = 'Expired';
+    }
+  });
+</script>
+
+</body>
+</html>
